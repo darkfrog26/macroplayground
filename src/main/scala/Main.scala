@@ -6,6 +6,13 @@ object Main extends App {
   def materialize[T: Mappable](map: Map[String, Any]) = implicitly[Mappable[T]].fromMap(map)
 
   val person = Person("john", 24)
+  val mappable = materializeMappable[Person]
+
+  @table[String] object MyCoolObject
+//  MyCoolObject.hello()
+  println(MyCoolObject)
+
+  println(mappable)
   assert {
     mapify(person) == Map("name" -> "john", "age" -> 24)
   }

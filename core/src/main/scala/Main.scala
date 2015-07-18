@@ -8,9 +8,12 @@ object Main extends App {
   val person = Person("john", 24)
   val mappable = materializeMappable[Person]
 
-  @table[String] object MyCoolObject
-//  MyCoolObject.hello()
-  println(MyCoolObject)
+  @typedTable[Person] object MyCoolObject {
+    val another = column[String]("another")
+  }
+  println("---Methods---")
+  println(MyCoolObject.getClass.getDeclaredMethods.foreach(println))
+  println("-------------")
 
   println(mappable)
   assert {
@@ -22,3 +25,5 @@ object Main extends App {
     materialize[Person](map) == Person("bob", 22)
   }
 }
+
+case class Person(id: Int, name: String)
